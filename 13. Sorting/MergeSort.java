@@ -4,54 +4,8 @@ public class MergeSort {
     public static void main(String[] args) {
         int[] arr = { 5, 3, 8, 9, 2, 10 };
         // System.out.println(Arrays.toString(mergeSort(arr)));
-        mergeSortInPlace(arr, 0, arr.length);
+        mergeSort(arr);
         System.out.println(Arrays.toString(arr));
-    }
-
-    static void mergeSortInPlace(int[] arr, int s, int e) {
-        if (e - s == 1)
-            return;
-
-        int mid = (s + e) / 2;
-
-        mergeSortInPlace(arr, s, mid);
-        mergeSortInPlace(arr, mid, e);
-
-        mergeBothInPlace(arr, s, mid, e);
-    }
-
-    static void mergeBothInPlace(int[] arr, int s, int m, int e) {
-        int[] mergeArr = new int[e - s];
-
-        int i = s, j = m, k = 0;
-
-        while (i < m && j < e) {
-            if (arr[i] < arr[j]) {
-                mergeArr[k] = arr[i];
-                i++;
-            } else {
-                mergeArr[k] = arr[j];
-                j++;
-            }
-            k++;
-        }
-
-        // it may be possible one array is not complete
-        while (i < m) {
-            mergeArr[k] = arr[i];
-            i++;
-            k++;
-        }
-
-        while (j < e) {
-            mergeArr[k] = arr[j];
-            j++;
-            k++;
-        }
-
-        for (int l = 0; l < mergeArr.length; l++) {
-            arr[s + l] = mergeArr[l];
-        }
     }
 
     static int[] mergeSort(int[] arr) {
