@@ -3,55 +3,55 @@ import java.util.Arrays;
 public class MergeSortInPlace {
 
     public static void main(String[] args) {
-        int[] arr = { 5, 3, 8, 9, 2, 10 };
+        int[] arr = { 5, 3, 8, 9, 2, 10, 1 };
+        int[] aux = Arrays.copyOf(arr, arr.length);
         // System.out.println(Arrays.toString(mergeSort(arr)));
-        mergeSort(arr, 0, arr.length);
+        mergeSort(arr, aux, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
     }
 
-    static void mergeSort(int[] arr, int s, int e) {
-        if (e - s == 1)
+    static void mergeSort(int[] arr, int[] aux, int s, int e) {
+        if (s == e)
             return;
 
         int mid = (s + e) / 2;
 
-        mergeSort(arr, s, mid);
-        mergeSort(arr, mid, e);
+        mergeSort(arr, aux, s, mid);
+        mergeSort(arr, aux, mid + 1, e);
 
-        mergeBoth(arr, s, mid, e);
+        mergeBoth(arr, aux, s, mid, e);
     }
 
-    static void mergeBoth(int[] arr, int s, int m, int e) {
-        int[] mix = new int[e - s];
+    static void mergeBoth(int[] arr, int[] aux, int s, int m, int e) {
 
-        int i = s, j = m, k = 0;
+        int i = s, j = m + 1, k = s;
 
-        while (i < m && j < e) {
-            if (arr[i] < arr[j]) {
-                mix[k] = arr[i];
+        while (i <= m && j <= e) {
+            if (aux[i] < aux[j]) {
+                arr[k] = aux[i];
                 i++;
             } else {
-                mix[k] = arr[j];
+                arr[k] = aux[j];
                 j++;
             }
             k++;
         }
 
         // it may be possible one array is not complete
-        while (i < m) {
-            mix[k] = arr[i];
+        while (i <= m) {
+            arr[k] = aux[i];
             i++;
             k++;
         }
 
-        while (j < e) {
-            mix[k] = arr[j];
+        while (j <= e) {
+            arr[k] = aux[j];
             j++;
             k++;
         }
-
-        for (int l = 0; l < mix.length; l++) {
-            arr[s + l] = mix[l];
+        // copy every element of mainArr to auxArr
+        for (int index = 0; index < arr.length; index++) {
+            aux[index] = arr[index];
         }
     }
 
