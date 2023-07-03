@@ -5,7 +5,7 @@ public class ArmsNum {
 
         /*
          * What is Armstrong Number? -> Example : lets take number 153. now take it's
-         * each invidual number, here it is 1,5,3. Now do sum of cube of each number :
+         * each individual number, here it is 1,5,3. Now do sum of cube of each number :
          * 1^3 + 5^3 + 3^3 = 1 + 126 + 27 = 153. if number we get is equal to original
          * number, then it is armstrong number.
          */

@@ -5,7 +5,7 @@ public class Maze {
 
         boolean[][] board = {
                 { true, true, true },
-                { true, false, true },
+                { true, true, false },
                 { true, true, true }
         };
         pathWithObstacles("", board, 0, 0);
