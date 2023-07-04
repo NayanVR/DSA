@@ -1,3 +1,7 @@
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class BST {
 
     public static void main(String[] args) {
@@ -7,7 +11,7 @@ public class BST {
         for (int num : nums)
             bst.insert(num);
 
-        System.out.println(bst.getHeight());
+        System.out.println(bst.levelOrderTraversal());
     }
 
     class Node {
@@ -91,5 +95,28 @@ public class BST {
             return 0;
 
         return 1 + Math.max(height(root.left), height(root.right));
+    }
+
+    List<List<Integer>> levelOrderTraversal() {
+        List<List<Integer>> list = new LinkedList<>();
+        Queue<Node> q = new LinkedList<>();
+        q.offer(root);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> temp = new LinkedList<>();
+
+            for (int i = 0; i < size; i++) {
+                Node node = q.poll();
+                temp.add(node.data);
+
+                if (node.left != null)
+                    q.offer(node.left);
+                if (node.right != null)
+                    q.offer(node.right);
+            }
+            list.add(temp);
+        }
+        return list;
     }
 }
