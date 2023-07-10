@@ -6,12 +6,12 @@ public class BST {
 
     public static void main(String[] args) {
         BST bst = new BST();
-        int[] nums = { 7, 3, 9, 1, 4, 8, 10 };
+        int[] nums = { 7, 3, 1, 4 };
 
         for (int num : nums)
             bst.insert(num);
 
-        System.out.println(bst.levelOrderTraversal());
+        System.out.println(bst.isBalanced());
     }
 
     class Node {
@@ -85,6 +85,29 @@ public class BST {
         } else {
             return depthOfNode(root.left, value, ++depth);
         }
+    }
+
+    boolean isBalanced() {
+        System.out.println(isBalancedHelper(root));
+        return isBalancedHelper(root) > 0;
+    }
+
+    int isBalancedHelper(Node root) {
+        if (root == null)
+            return -1;
+
+        if (root.left == null && root.right == null)
+            return 0;
+
+        int left = isBalancedHelper(root.left);
+        int right = isBalancedHelper(root.right);
+
+        boolean isBalance = Math.abs(left - right) <= 1;
+
+        if (!isBalance)
+            return -100000;
+
+        return 1 + Math.max(left, right);
     }
 
     int height(Node root) {
