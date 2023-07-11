@@ -20,18 +20,22 @@ public class SumTree {
     }
 
     public Pair SumTreeOrNot(BT.Node root) {
+        if (root == null)
+            return new Pair(true, 0);
         if (root.left == null && root.right == null)
             return new Pair(true, root.data);
 
         Pair leftPair = SumTreeOrNot(root.left);
-        Pair righPair = SumTreeOrNot(root.right);
+        if (!leftPair.isSumTree)
+            return leftPair;
 
-        int newSum = leftPair.sum + righPair.sum;
+        Pair rightPair = SumTreeOrNot(root.right);
+        if (!rightPair.isSumTree)
+            return rightPair;
 
-        if (newSum != root.data)
-            return new Pair(false, newSum);
+        int mySum = leftPair.sum + rightPair.sum;
 
-        return new Pair(true, newSum + root.data);
+        return new Pair(mySum == root.data, mySum + root.data);
     }
 }
 
